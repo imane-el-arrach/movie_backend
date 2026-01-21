@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=78.1.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "imane_moviessdk"
+version = "0.0.3"
+authors = [
+{ name="[Imane El Arrach]" },
+]
+description = "Software Development Kit (SDK) for MovieLens API"
+readme= "README.md"
+license = { file= "LICENCE"}
+requires-python = ">=3.12"
+classifiers = [
+"Development Status :: 3 - Alpha",
+"Programming Language :: Python :: 3",
+"License :: OSI Approved :: MIT License",
+"Operating System :: OS Independent",
+]
+dependencies = [
+'httpx>=0.28.1',
+'pydantic>=2.11.3',
+'backoff>=2.2.1',
+'numpy>=2.2.4',
+'pandas>=2.2.3',
+'python-dotenv',
+]
