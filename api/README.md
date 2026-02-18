@@ -128,12 +128,9 @@ Les contributions sont les bienvenues !
 ---
 
 ## Software Development Kit (SDK)
+[https://pypi.org/project/imane-moviessdk/] 
 
-A venir 
 
-## URL publique (Cloud) de l'API
-
-A venir
 
 ## Auteur
 
