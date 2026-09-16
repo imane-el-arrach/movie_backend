@@ -1,112 +1,113 @@
-# Mission : **Construire un Écosystème Data Centré sur le Cinéma avec Python, FastAPI et Streamlit** 
+# 🎬 MovieLens API — Backend REST, SDK Python & Docker
 
-**Objectif : Construire une API robuste pour centraliser et exposer les données MovieLens.**  
+![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-REST%20API-009688?logo=fastapi&logoColor=white)
+![PyPI](https://img.shields.io/badge/PyPI-imane--moviessdk-3775A9?logo=pypi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-containerized-2496ED?logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)
 
-🔹 **Design de la base de données** :  
-- Modéliser la base de données en SQL à partir des fichiers CSV.  
-- Utiliser **SQLite** pour stocker les données de manière efficace.  
-- Gérer les relations entre les films, les utilisateurs, les notes et les tags.  
+Une **API REST complète** construite de A à Z autour du dataset **MovieLens**, avec une architecture robuste et industrialisée : base de données SQLite, **SDK Python publié sur PyPI**, containerisation **Docker**, documentation interactive et tests automatisés.
 
-🔹 **Développement de l’API avec FastAPI** :  
-- Concevoir un **API RESTful** permettant d'interroger facilement les films et les notes des utilisateurs.  
-- Intégrer **Pydantic** pour la validation des données entrantes.  
-- Utiliser **SQLAlchemy** pour la gestion des requêtes à la base de données.  
+📦 **SDK sur PyPI** : [`pip install imane-moviessdk`](https://pypi.org/project/imane-moviessdk/)
+📚 **Documentation interactive** : disponible sur `/docs` une fois l'API lancée (Swagger / OpenAPI 3.1)
 
-🔹 **Déploiement de l’API** :  
-- Prévoir une version **on-premise** avec Docker.  
-- Sécuriser les endpoints et optimiser les performances.  
-
-🔹 **Création d’un SDK en Python** :  
-- Développer un **package Python** permettant aux utilisateurs d'interagir facilement avec l’API.  
-- Publier ce package sur **PyPI**, afin qu’il puisse être utilisé dans d'autres projets.  
-
-**Livrables** :  
-- Une base de données centralisée et prête à l’emploi.  
-- Une API FastAPI documentée et déployée.  
-- Un SDK Python simple d'utilisation et bien documenté
+> ℹ️ Ce repo couvre la **Phase 1** du projet (backend). La Phase 2 — une application Streamlit d'analyse et de visualisation des films consommant cette API — est disponible dans un repo séparé : [film_analytics](https://github.com/imane-el-arrach/films-analytics).
 
 ---
 
-## **Phase 2 : Data Analyst - Exploration et Visualisation**  
+## 🖼️ Aperçu
 
-![](architecturephase.png)
+![Architecture globale de l'API](architecture.png)
 
-**Objectif : Explorer et analyser les données en interrogeant l’API.**  
+![Documentation interactive Swagger/OpenAPI](screenshots/api_swagger_docs.PNG)
+*L'API expose des endpoints pour rechercher des films, consulter les évaluations, accéder aux tags, récupérer les liens IMDB/TMDB et obtenir des statistiques globales — tous avec pagination et gestion d'erreurs claire*
 
-🔹 **Analyse Exploratoire des Données (EDA)** :  
-- Utiliser le **SDK Python** pour requêter l’API et récupérer les données.  
-- Identifier les tendances dans les notes des films.  
-- Étudier les genres les plus populaires et les préférences des utilisateurs.  
+![Page du package sur PyPI](screenshots/pypi_package.PNG)
+*Le SDK `imane-moviessdk`, conçu pour les Data Analysts et Data Scientists, avec prise en charge native de Pydantic, dictionnaires et DataFrames Pandas*
 
-🔹 **Construction d’une Data App avec Streamlit** :  
-- Créer une **application interactive** qui permet de visualiser les tendances du cinéma.  
-- Intégrer des **tableaux dynamiques** et des **graphiques interactifs**.  
-- Offrir une **recherche avancée** des films en fonction des notes et des genres.  
+## 🧱 Ce qui a été construit
 
-**Livrables** :  
-- Un notebook d'analyse exploratoire interactif.  
-- Une **application web Streamlit** connectée à l’API qui présente, de manière interactive, les insights aux parties prenantes.
+- **Modélisation de la base de données** en SQL à partir des fichiers CSV MovieLens (films, utilisateurs, évaluations, tags, liens IMDB/TMDB), stockée dans **SQLite**
+- **API RESTful avec FastAPI** : recherche de films par ID, listing, évaluations par utilisateur/film, tags, liens externes, statistiques globales — avec pagination (`skip`, `limit`) et filtres optionnels
+- **Validation des données** avec **Pydantic**
+- **Gestion des requêtes** à la base de données avec **SQLAlchemy**
+- **SDK Python** (`imane-moviessdk`) publié sur **PyPI**, pensé pour les Data Analysts/Data Scientists, avec support natif des DataFrames Pandas
+- **Containerisation Docker** avec **multi-stage builds** pour des images optimisées
+- **Tests unitaires et d'intégration** (Pytest) couvrant l'API et l'intégration API-SDK
+- **Documentation interactive** Swagger/OpenAPI générée automatiquement
 
+## 🔧 Installation & lancement
 
-# Dataset MovieLens - Description des Données
+**Avec Docker (recommandé) :**
+```bash
+git clone https://github.com/imane-el-arrach/movie_backend.git
+cd movie_backend
 
-Le dataset MovieLens est un ensemble de données publiques fournies par GroupLens, contenant des informations sur des films, des évaluations d'utilisateurs, ainsi que des tags attribués aux films. Il est souvent utilisé pour la recherche et l'expérimentation dans le domaine des systèmes de recommandation.
+docker build -t movielens-api .
+docker run -p 8000:8000 movielens-api
+```
+La documentation interactive est alors disponible sur `http://localhost:8000/docs`
 
+**En local (sans Docker) :**
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows : .venv\Scripts\activate
 
+pip install -r requirements.txt
+uvicorn api.main:app --reload
+```
 
-# Phase 1 : Développeur Python & Architecte API
+**Utiliser le SDK :**
+```bash
+pip install imane-moviessdk
+```
 
-## Introduction
+**Lancer les tests :**
+```bash
+pytest
+```
 
-![](architecture.png)
+## 🏗️ Comment fonctionne l'architecture
 
+1. Les **utilisateurs de l'API** interagissent via le **SDK Python** (`imane-moviessdk`), qui simplifie l'envoi de requêtes
+2. Les données transitent par **Pydantic**, qui valide leur format
+3. **FastAPI** reçoit la requête, orchestre le traitement et décide de l'action à effectuer
+4. **SQLAlchemy** traduit les opérations en requêtes compréhensibles par la base
+5. **SQLite** stocke et restitue les données de manière structurée
 
-### Explication du diagramme
+## 🚧 Défis techniques relevés
 
-Une API (Application Programming Interface) est une interface qui permet à des applications ou des utilisateurs d'interagir avec un système. Ce diagramme représente comment une API fonctionne pour gérer des données et interagir avec une base de données.
+- **Packaging PyPI** : première publication d'un package Python, gestion des dépendances
+- **Dockerisation** : optimisation d'image via des builds multi-stage
+- **Tests** : mise en place de tests systématiques avant déploiement
+- **Documentation** : Swagger interactif + README détaillé
 
-#### Étape par étape :
+## 📊 Dataset
 
-1. **Les utilisateurs de l'API** (`API Users`)  
-   - Ce sont les personnes ou applications qui utilisent l'API pour envoyer ou récupérer des données.
-   - Pour interagir avec l'API, ils utilisent un **SDK** (Software Development Kit), qui est une bibliothèque (un package) Python facilitant l'envoi de requêtes.
+Le [dataset MovieLens](https://grouplens.org/datasets/movielens/) (GroupLens) contient des informations sur des films, des évaluations d'utilisateurs et des tags — largement utilisé en recherche sur les systèmes de recommandation.
 
-2. **Le transfert et la validation des données** (`Pydantic`)  
-   - Lorsque l'utilisateur envoie des requêtes à l'API, elles passent d'abord par **Pydantic**.  Nous parlerons davantage de Pydantic dans une autre session.
-   - Pydantic vérifie que les données sont correctes (par exemple, s'il manque une valeur ou si un type est incorrect).  
+## 📂 Structure du projet
 
-3. **Le contrôleur API** (`FastAPI`)  
-   - FastAPI est le cœur de l'API. Il reçoit les requêtes des utilisateurs, traite les données et décide de ce qu'il faut faire (ex. : insérer de nouvelles données, récupérer des informations, etc.).
-   - Il agit comme un intermédiaire entre l'utilisateur et la base de données.
+```
+movie_backend/
+├── api/                 # API FastAPI (routes, modèles, base de données)
+├── data/                # Fichiers CSV MovieLens
+├── sdk/                 # SDK Python (publié sur PyPI sous imane-moviessdk)
+├── screenshots/         # Visuels utilisés dans ce README
+├── architecture.png
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
 
-4. **Les classes de base de données** (`SQLAlchemy`)  
-   - SQLAlchemy est une bibliothèque qui permet de communiquer avec la base de données de manière organisée.
-   - Il traduit les requêtes Python en instructions compréhensibles par la base de données.
+## 🔜 Suite du projet
 
-5. **La base de données** (`SQLite`)  
-   - SQLite est la database où se trouve les données.
-   - L'API envoie des requêtes pour récupérer des données de la database SQLite.
+Cette API est consommée dans la **Phase 2** — une application Streamlit d'analyse et de visualisation interactive des films (tendances de notation, genres populaires, recherche avancée) : voir [film_analytics](https://github.com/imane-el-arrach/films-analytics).
 
-#### En résumé :
-- L'utilisateur envoie des données via l'**SDK**.
-- Ces données sont **validées** (`Pydantic`).
-- L'API décide quoi faire (`FastAPI`).
-- Si nécessaire, elle stocke ou récupère des données via **SQLAlchemy**.
-- La base de données **SQLite** garde les informations de manière structurée.
+## 👩‍💻 Auteure
 
-
-## Création d'un un kit de développement logiciel (*Software development kit* ou SDK) pour l'API
-
-
-### Qu'est-ce qu'un SDK et pourquoi est-il important ?
-
-Un **Software Development Kit** (SDK) est un ensemble d'outils, de bibliothèques, de documentation et d'exemples de code qui permettent aux développeurs de facilement intégrer, étendre ou interagir avec une application, un service ou une API. Dans le contexte de notre projet, le SDK sera un package Python qui fournira une interface simple et intuitive pour interagir avec notre API MovieLens.
-
-Les bénéfices de la création d'un SDK pour l'API sont nombreux :
-- **Faciliter l'intégration** : Les utilisateurs n'ont pas besoin de comprendre les détails techniques de l'API, comme l'envoi de requêtes HTTP ou la gestion des réponses. Le SDK simplifie ces étapes.
-- **Accélérer le développement** : En fournissant des fonctions prédéfinies pour effectuer des actions courantes, le SDK permet aux utilisateurs de gagner du temps.
-- **Assurer la cohérence** : Un SDK bien conçu garantit que tous les utilisateurs interagiront avec l'API de manière uniforme et cohérente.
-- **Support de la communauté** : En partageant un SDK via PyPI, il devient accessible à d'autres développeurs et analystes de données qui pourraient l'utiliser dans leurs projets.
+**Imane El Arrach** — Élève-ingénieure en Génie Informatique, spécialité Ingénierie des Données & IA, ENSA Safi
+[LinkedIn](https://www.linkedin.com/in/imane-el-arrach-7a88ab325/) · [GitHub](https://github.com/imane-el-arrach)
 
 
 
