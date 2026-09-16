@@ -86,18 +86,6 @@ pytest
 
 Le [dataset MovieLens](https://grouplens.org/datasets/movielens/) (GroupLens) contient des informations sur des films, des évaluations d'utilisateurs et des tags — largement utilisé en recherche sur les systèmes de recommandation.
 
-## 📂 Structure du projet
-
-```
-movie_backend/
-├── api/                 # API FastAPI (routes, modèles, base de données)
-├── data/                # Fichiers CSV MovieLens
-├── sdk/                 # SDK Python (publié sur PyPI sous imane-moviessdk)
-├── screenshots/         # Visuels utilisés dans ce README
-├── architecture.png
-├── Dockerfile
-├── requirements.txt
-└── README.md
 ```
 
 ## 🔜 Suite du projet
